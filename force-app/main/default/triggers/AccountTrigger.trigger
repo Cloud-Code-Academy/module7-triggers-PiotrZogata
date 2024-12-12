@@ -18,7 +18,8 @@ trigger AccountTrigger on Account (before insert, after insert) {
         }
     }    
 }
-    if(Trigger.isAfter && Trigger.isInsert){
+    
+if(Trigger.isAfter && Trigger.isInsert){
         List<Contact> listOfContact = new List<Contact>();
         for(Account acc : Trigger.New) {
             Contact con = new Contact(LastName = 'DefaultContact', Email = 'default@email.com', AccountId = acc.Id);
