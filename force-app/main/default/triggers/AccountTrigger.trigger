@@ -1,7 +1,6 @@
 trigger AccountTrigger on Account (before insert, after insert) {
-    List<Account> accListToUpdate = new List<Account>();
     if(Trigger.isBefore && Trigger.isInsert){
-    for(Account acc : Trigger.New) {
+      for(Account acc : Trigger.New) {
         //check if account is null on contact
         if(acc.Type == null ) {
             acc.Type = 'Prospect';
@@ -16,10 +15,8 @@ trigger AccountTrigger on Account (before insert, after insert) {
         if(acc.Phone != '' && acc.Website != '' && acc.Fax != '' ) {
             acc.Rating = 'Hot';
         }
-    }    
-}
-    
-if(Trigger.isAfter && Trigger.isInsert){
+        }    
+    }else if(Trigger.isAfter && Trigger.isInsert) {
         List<Contact> listOfContact = new List<Contact>();
         for(Account acc : Trigger.New) {
             Contact con = new Contact(LastName = 'DefaultContact', Email = 'default@email.com', AccountId = acc.Id);
